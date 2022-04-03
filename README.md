@@ -26,7 +26,7 @@ To use the compiler :
    chmod u+x compiler
    ./compiler
  or
-   ./compiler btrfs
+   ./compiler btrfsP
 This will generate two files: oroot, oroot_install
 
 You will want to move these files to the appropriate directory :
@@ -35,3 +35,16 @@ In Repo                 |   On Root
 ------------------------|------------------------------------
 oroot                   |    /usr/lib/initcpio/hooks/oroot
 oroot_install           |    /usr/lib/initcpio/install/oroot
+
+### LiveRootSafety
+
+Unmounts `/boot` when running in ram, and overwrites `/etc/motd` with a message about the device on which the root filesystem is mounted.  This is important if `/boot` is a distinct mount point e.g. an efi partition.  It takes no action if `/boot` is not a distinct mount point.
+
+This is a safety measure to make sure running `pacman -Syu` when booted into ram doesn't leave the system partially updated (or broken).
+
+Compile the code in liverootsafety e.g. 
+```sh
+go build -ldflags="-s -w" -v
+```
+
+Drop the binary into `/usr/local/bin` and deploy the systemd targets.
