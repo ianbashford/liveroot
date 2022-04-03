@@ -1,0 +1,10 @@
+[Unit]
+Description=unmount /boot
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/liverootsafety
+
+[Install]
+WantedBy=liverootsafety.target

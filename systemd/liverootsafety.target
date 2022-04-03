@@ -1,0 +1,6 @@
+[Unit]
+Description=unmount /boot if running rootFS in ram
+Requires=multi-user.target
+After=multi-user.target
+AllowIsolate=yes
+
